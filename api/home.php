@@ -103,16 +103,26 @@ else
 {
     
 }
-	$udata = $con->query("select * from user where id=".$uid."")->fetch_assoc();
-	$date_time = $udata['rdate'];
-	
-$remain = $con->query("select * from noti where date >='".$date_time."'")->num_rows;
 
-	
-	$read = $con->query("select * from uread where uid=".$uid."")->num_rows;
-	$r_noti = $remain - $read;
+    if($uid != 0){
+        $udata = $con->query("select * from user where id=".$uid."")->fetch_assoc();
+        $date_time = $udata['rdate'];
+        $remain = $con->query("select * from noti where date >='".$date_time."'")->num_rows;
+    }
+
+    if($uid == 0){
+        $r_noti = 0;
+    }else{
+        $read = $con->query("select * from uread where uid=".$uid."")->num_rows;
+        $r_noti = $remain - $read;
+    }
 	$curr = $con->query("select * from setting")->fetch_assoc();
-	$wallet = $con->query("select * from user where id=".$uid."")->fetch_assoc();
+
+    if($uid == 0){
+        $wallet['wallet'] = 0;
+    }else{
+        $wallet = $con->query("select * from user where id=".$uid."")->fetch_assoc();
+    }
 	$kp = array('Banner'=>$v,'Catlist'=>$cp,'Productlist'=>$d,"Remain_notification"=>$r_noti,"Main_Data"=>$curr,"dynamic_section"=>$sec,"Wallet"=>$wallet['wallet']);
 	
 	$returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Data Get Successfully!","ResultData"=>$kp);
