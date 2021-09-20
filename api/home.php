@@ -4,12 +4,7 @@ require 'db.php';
 $data = json_decode(file_get_contents('php://input'), true);
  
 $uid = $data['uid'];
-if($uid == '')
-{
-	$returnArr = array("ResponseCode"=>"401","Result"=>"false","ResponseMsg"=>"Something Went wrong  try again !");
-}
-else 
-{ 
+
 	$v = array();
 	$cp = array(); 
 	$d = array();
@@ -126,5 +121,4 @@ else
 	$kp = array('Banner'=>$v,'Catlist'=>$cp,'Productlist'=>$d,"Remain_notification"=>$r_noti,"Main_Data"=>$curr,"dynamic_section"=>$sec,"Wallet"=>$wallet['wallet']);
 	
 	$returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Data Get Successfully!","ResultData"=>$kp);
-}
 echo json_encode($returnArr);
