@@ -9,7 +9,7 @@ try {
   if($_SERVER['HTTP_HOST'] == 'localhost'){
     $con = new mysqli("localhost", "sonu", "password", "grocery");
   }else{
-    $con = new mysqli("localhost", "inventry", "password", "grocery");
+    $con = new mysqli("localhost", "inventory", "password", "grocery");
   }
   $con->set_charset("utf8mb4");
 } catch(Exception $e) {
