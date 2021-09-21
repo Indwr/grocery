@@ -16,7 +16,7 @@ function generate_random()
 		return $six_digit_random_number;
 	}
 }
-if($data['name'] == '' or $data['email'] == '' or $data['mobile'] == '' or $data['imei'] or $data['password'] == '' or $data['ccode'] == '')
+if($data['name'] == '' or $data['email'] == '' or $data['mobile'] == '' or $data['imei'] =='' or $data['password'] == '' or $data['ccode'] == '')
 {
     $returnArr = array("ResponseCode"=>"401","Result"=>"false","ResponseMsg"=>"Something Went Wrong!");
 }
