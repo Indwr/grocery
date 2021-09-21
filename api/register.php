@@ -16,7 +16,7 @@ function generate_random()
 		return $six_digit_random_number;
 	}
 }
-if($data['name'] == '' or $data['email'] == '' or $data['mobile'] == '' or $data['password'] == '' or $data['ccode'] == '')
+if($data['name'] == '' or $data['email'] == '' or $data['mobile'] == '' or $data['imei'] or $data['password'] == '' or $data['ccode'] == '')
 {
     $returnArr = array("ResponseCode"=>"401","Result"=>"false","ResponseMsg"=>"Something Went Wrong!");
 }
@@ -27,7 +27,7 @@ else
     $email = strip_tags(mysqli_real_escape_string($con,$data['email']));
     $mobile = strip_tags(mysqli_real_escape_string($con,$data['mobile']));
 	$ccode = strip_tags(mysqli_real_escape_string($con,$data['ccode']));
-    // $imei = strip_tags(mysqli_real_escape_string($con,$data['imei']));
+    $imei = strip_tags(mysqli_real_escape_string($con,$data['imei']));
      $password = strip_tags(mysqli_real_escape_string($con,$data['password']));
      $refercode = strip_tags(mysqli_real_escape_string($con,$data['refercode']));
      
@@ -54,7 +54,7 @@ else
         $prentcode = generate_random();
 		$wallet = $con->query("select * from setting")->fetch_assoc();
 		$fin = $wallet['signupcredit'];
-        $con->query("insert into user(`name`,`email`,`mobile`,`rdate`,`password`,`ccode`,`code`,`refercode`,`wallet`)values('".$name."','".$email."','".$mobile."','".$timestamp."','".$password."','".$ccode."',".$prentcode.",".$refercode.",".$fin.")");
+        $con->query("insert into user(`name`,`email`,`imei`,`mobile`,`rdate`,`password`,`ccode`,`code`,`refercode`,`wallet`)values('".$name."','".$email."','".$imei."','".$mobile."','".$timestamp."','".$password."','".$ccode."',".$prentcode.",".$refercode.",".$fin.")");
          $last_id = $con->insert_id;
 		$con->query("insert into wallet_report(`uid`,`message`,`status`,`amt`)values(".$last_id.",'Sign up Credit Added!!','Credit',".$fin.")");
 		$returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Registration successfully!");
@@ -68,7 +68,7 @@ else
 	   {
         $timestamp = date("Y-m-d H:i:s");
         $prentcode = generate_random();
-        $con->query("insert into user(`name`,`email`,`mobile`,`rdate`,`password`,`ccode`,`code`)values('".$name."','".$email."','".$mobile."','".$timestamp."','".$password."','".$ccode."',".$prentcode.")");
+        $con->query("insert into user(`name`,`email`,`imei`,`mobile`,`rdate`,`password`,`ccode`,`code`)values('".$name."','".$email."','".$imei."','".$mobile."','".$timestamp."','".$password."','".$ccode."',".$prentcode.")");
     
         $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Registration successfully!");
 	   }
