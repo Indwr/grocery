@@ -511,6 +511,7 @@
     </style>
    <?php 
   require 'include/js.php';
+  require 'include/footer.php';
   ?>
     
  
