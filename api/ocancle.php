@@ -10,6 +10,9 @@ else
     $uid = strip_tags(mysqli_real_escape_string($con,$data['uid']));
     $oid = strip_tags(mysqli_real_escape_string($con,$data['oid']));
     $con->query("update orders set status='cancelled' where  id=".$oid." and uid=".$uid."");
+    $dataa = ['orderId' => $oid,'order_uid' => $uid];
+    $jsonData = json_encode($dataa);
+    $con->query("INSERT INTO `webNotifications`(`data`,`type`) VALUES ('$jsonData','orderCancel')");
     $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Order Cancle Successfully!");
     
 }

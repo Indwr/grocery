@@ -54,15 +54,22 @@ if($wal_amt > $getuinfo['wallet'])
 else 
 {
 $con->query("insert into orders(`oid`,`uid`,`pname`,`pid`,`ptype`,`pprice`,`ddate`,`timesloat`,`order_date`,`status`,`qty`,`total`,`p_method`,`address_id`,`tax`,`tid`,`cou_amt`,`coupon_id`,`wal_amt`)values('".$oid."',".$uid.",'".$pname."','".$pid."','".$ptype."','".$pprice."','".$ddate."','".$timesloat."','".$timestamp."','".$status."','".$qty."',".$total.",'".$p_method."',".$address_id.",".$tax.",'".$tid."',".$cou_amt.",".$coupon_id.",".$wal_amt.")");
-
+$last_id = $con->insert_id;
 $con->query("update user set wallet=wallet-".$wal_amt." where id=".$uid."");
 $con->query("insert into wallet_report(`uid`,`message`,`status`,`amt`)values(".$uid.",'Wallet Balance Use For Order!!','Debit',".$wal_amt.")");
+$dataa = ['orderId' => $last_id,'order_uid' => $uid];
+$jsonData = json_encode($dataa);
+$con->query("INSERT INTO `webNotifications`(`data`,`type`) VALUES ('$jsonData','orderPlace')");
 $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Order Placed Successfully!!!");
 }
 }
 else 
 {
 $con->query("insert into orders(`oid`,`uid`,`pname`,`pid`,`ptype`,`pprice`,`ddate`,`timesloat`,`order_date`,`status`,`qty`,`total`,`p_method`,`address_id`,`tax`,`tid`,`cou_amt`,`coupon_id`,`wal_amt`)values('".$oid."',".$uid.",'".$pname."','".$pid."','".$ptype."','".$pprice."','".$ddate."','".$timesloat."','".$timestamp."','".$status."','".$qty."',".$total.",'".$p_method."',".$address_id.",".$tax.",'".$tid."',".$cou_amt.",".$coupon_id.",".$wal_amt.")");
+$last_id2 = $con->insert_id;
+$dataa = ['orderId' => $last_id2,'order_uid' => $uid];
+$jsonData = json_encode($dataa);
+$con->query("INSERT INTO `webNotifications`(`data`,`type`) VALUES ('$jsonData','orderPlace')");
 $con->query("update user set wallet=wallet-".$wal_amt." where id=".$uid."");
 $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Order Placed Successfully!!!");
 }
