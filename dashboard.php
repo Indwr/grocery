@@ -94,8 +94,13 @@ body {
                     <?php }
                     ?>
                     <?php 
-                    if($getWebNotifications[0][0]){ ?>
-                      <h2><a href="order?refer=canceled">You have <?= $getWebNotifications[0][0] ?> new Canceled Order</a></h2>
+                    if($getWebNotifications[0][0]){ 
+                      if($getWebNotifications[0][1] == 'orderPlace'){ ?>
+                        <h2><a href="order?refer=placed">You have <?= $getWebNotifications[0][0] ?> new Order</a></h2>
+                      <?php }else{ ?>
+                        <h2><a href="order?refer=canceled">You have <?= $getWebNotifications[0][0] ?> new Canceled Order</a></h2>
+                      <?php }
+                      ?>
                     <?php }
                     ?>
                   </div>
