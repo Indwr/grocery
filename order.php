@@ -177,7 +177,7 @@ else
                             </thead>
                             <tbody>
                                 <?php 
-                                $sel = $con->query("select * from orders where status !='completed' order by id desc");
+                                $sel = $con->query("select * from orders where status !='completed' order by updated_at DESC");
                                 $i=0;
                                 while($row = $sel->fetch_assoc())
                                 {
