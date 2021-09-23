@@ -1,5 +1,13 @@
 <?php 
   require 'include/header.php';
+  if($_GET['refer']){
+    if($_GET['refer'] == 'placed'){
+      $con->query("UPDATE `webNotifications` SET `isWatch`=1 WHERE type='orderPlace' and isWatch=0");
+    }
+    if($_GET['refer'] == 'canceled'){
+      $con->query("UPDATE `webNotifications` SET `isWatch`=1 WHERE type='orderCancel' and isWatch=0");
+    }
+  }
   $getkey = $con->query("select * from setting")->fetch_assoc();
 define('ONE_KEY',$getkey['one_key']);
 define('ONE_HASH',$getkey['one_hash']);

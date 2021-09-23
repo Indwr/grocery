@@ -54,7 +54,7 @@
                                     <td><img class="media-object round-media" src="<?php echo $row['img'];?>" alt="Generic placeholder image" style="height: 75px;"></td>
                                     <td><?php echo $con->query("select * from product where sid=".$row['id']."")->num_rows;?></td>
 									<td>
-									<a class="primary"  href="subcategory.php?edit=<?php echo $row['id'];?>" data-original-title="" title="">
+									<a class="primary"  href="subcategory?edit=<?php echo $row['id'];?>" data-original-title="" title="">
                                             <i class="ft-edit font-medium-3"></i>
                                         </a>
 										
